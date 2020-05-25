@@ -4,17 +4,20 @@ import com.cook.recipe.domain.*;
 import com.cook.recipe.repositories.CategoryRepository;
 import com.cook.recipe.repositories.RecipeRepository;
 import com.cook.recipe.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 
@@ -30,13 +33,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
         recipeRepository.saveAll(getRecipes());
+        log.debug("Load bootstrap data");
     }
 
-    private void loadData(){
 
-    }
 
     private List<Recipe> getRecipes() {
 
