@@ -1,8 +1,9 @@
 package com.cook.recipe.services;
 
+import com.cook.recipe.converters.RecipeCommandToRecipe;
+import com.cook.recipe.converters.RecipeToRecipeCommand;
 import com.cook.recipe.domain.Recipe;
 import com.cook.recipe.repositories.RecipeRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -12,7 +13,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -20,6 +20,9 @@ import static org.mockito.Mockito.*;
 class RecipeServiceImplTest {
 
     RecipeServiceImpl recipeService;
+    RecipeCommandToRecipe recipeCommandToRecipe;
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
 
     @Mock
     RecipeRepository recipeRepository;
@@ -27,7 +30,7 @@ class RecipeServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
